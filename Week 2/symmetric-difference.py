@@ -1,0 +1,11 @@
+leng1 = int(input())
+lis1 = set(map(int, input().split()))
+leng2 = int(input())
+lis2 = set(map(int, input().split()))
+
+int1 = lis1.difference(lis2)
+int2 = lis2.difference(lis1)
+uni1 = int1.union(int2)
+uni1 = list(uni1)
+uni1.sort()
+print(*uni1, sep = "\n")
