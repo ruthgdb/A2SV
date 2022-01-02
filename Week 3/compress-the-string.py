@@ -1,9 +1,5 @@
 from itertools import groupby
-
-s = input()
-lis = [x for x in s]
-grouped = groupby(lis)
  
-for i, j in grouped:
+for i, j in groupby(input()):
     temp = [len(list(j)),int(i)]
     print(tuple(temp), end=" ")
