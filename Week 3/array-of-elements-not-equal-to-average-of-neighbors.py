@@ -12,12 +12,7 @@ class Solution:
         for i in range(mid):
             sortedarr[odd] = nums[i]
             odd += 2
-            x = i
-        x += 1
-        for i in range(x,n):
+        for i in range(mid,n):
             sortedarr[even] = nums[i] 
             even += 2
         return sortedarr
-        
-        
-                
