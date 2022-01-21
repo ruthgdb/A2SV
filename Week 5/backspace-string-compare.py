@@ -17,7 +17,4 @@ class Solution:
             else:
                 stack2.append(element)
         
-        if stack1 == stack2:
-            return True 
-        else:
-            return False
+        return stack1 == stack2
