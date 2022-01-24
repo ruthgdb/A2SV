@@ -1,14 +1,14 @@
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        res = []
-        for i in range(len(nums1)):
-            index = nums2.index(nums1[i])
-            for j in range(index, len(nums2)):
-                temp = -2
-                if j < len(nums2)-1 and nums2[index] < nums2[j+1]:
-                    temp = nums2[j+1]
-                    break
-                else:
-                    temp = -1
-            res.append(temp)
-        return res
+        monoStack = [nums2[0]]
+        greaterElement = {}
+        
+        for i in range(1, len(nums2)):
+            while monoStack and (nums2[i] > monoStack[-1]):
+                greaterElement[monoStack.pop()] = nums2[i]   
+            monoStack.append(nums2[i])
+            
+        while monoStack:
+            greaterElement[monoStack.pop()] = -1
+       
+        return [greaterElement[i] for i in nums1]
