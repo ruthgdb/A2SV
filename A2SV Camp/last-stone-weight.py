@@ -1,7 +1,6 @@
 class Solution:
     def lastStoneWeight(self, stones: List[int]) -> int:
         heapq._heapify_max(stones)
-        print(stones)
         
         if len(stones) == 1:
             return stones[0]
