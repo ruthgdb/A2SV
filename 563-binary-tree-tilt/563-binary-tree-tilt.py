@@ -18,8 +18,8 @@ class Solution:
         
         if not root:
             return 0
-        if not root.left and not root.right:
-            return 0
+        # if not root.left and not root.right:
+        #     return 0
 
         self.total += abs(rootSums(root.left) - rootSums(root.right))
         self.findTilt(root.left) 
