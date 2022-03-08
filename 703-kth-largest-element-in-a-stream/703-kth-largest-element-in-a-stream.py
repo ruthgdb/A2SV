@@ -4,7 +4,7 @@ class KthLargest:
         self.nums = nums
         self.k = k
         heapify(nums)
-        
+
     def add(self, val: int) -> int:
         heappush(self.nums, val)
         
@@ -12,6 +12,8 @@ class KthLargest:
             heapq.heappop(self.nums)
 
         return self.nums[0]
+        
+
 
 # Your KthLargest object will be instantiated and called as such:
 # obj = KthLargest(k, nums)
