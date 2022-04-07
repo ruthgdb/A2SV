@@ -11,15 +11,14 @@ class Solution:
             if flowerbed[0] == 0 and flowerbed[1] == 0:
                 count += 1
                 flowerbed[0] = 1
+                
             if flowerbed[length - 1] == 0 and flowerbed[length - 2] == 0:
                 count += 1
                 flowerbed[length - 1] = 1
 
             for i in range(1, length - 1):
-                if flowerbed[i + 1] == flowerbed[i - 1] == flowerbed[i]:
+                if flowerbed[i + 1] == flowerbed[i - 1] == flowerbed[i] == 0:
                     count += 1
-                    flowerbed[i] = abs(flowerbed[i] - 1)
-
-        if n <= count:
-            return True
-        return False
+                    flowerbed[i] = 1
+         
+        return n <= count
