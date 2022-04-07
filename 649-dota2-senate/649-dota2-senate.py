@@ -3,7 +3,7 @@ class Solution:
         queue = deque(senate)
         count = Counter(queue)
                 
-        while queue or count['R'] != 0 or count['D'] != 0:
+        while count['R'] != 0 or count['D'] != 0:
             temp = queue.popleft()
             if temp == 'D' and 'R' in queue:
                 queue.remove('R')
