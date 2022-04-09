@@ -3,10 +3,11 @@ class Solution:
         if len(nums) == 1:
             return nums[0] 
         
-        temp = nums[0]
-        money = max(temp, nums[1])
+        dp = [0] * len(nums)
+        dp[0] = nums[0]
+        dp[1] = max(nums[0], nums[1])
         
         for i in range(2, len(nums)):
-            temp, money = money, max(money, temp + nums[i])
+            dp[i] = max(nums[i] + dp[i - 2], dp[i - 1])
         
-        return money
+        return max(dp[-1], dp[-2])
