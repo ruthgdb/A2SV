@@ -4,10 +4,7 @@ for i in range(t):
     n, k = map(int, input().split())
     a = list(map(int, input().split()))
     b = list(map(int, input().split()))
-    RAM = []
-    
-    for i in range(n):
-        RAM.append([a[i], b[i]])
+    RAM = [[a[i], b[i]] for i in range(n)]
     
     RAM.sort()
     
