@@ -4,10 +4,9 @@ for i in range(t):
     n = int(input())
     arr = list(map(int, input().split()))
     arr.sort()
-    left = 1
-    right = len(arr) - 1
-    blueSum = sum(arr[:left + 1])
-    redSum = sum(arr[right:])
+    left, right = 1, len(arr) - 1
+    blueSum = arr[0] + arr[1]
+    redSum = arr[-1]
     
     result = "NO"
     
@@ -15,10 +14,9 @@ for i in range(t):
         if blueSum < redSum:
             result = "YES"
             break
-        else:
-            left += 1
-            right -= 1
-            blueSum += arr[left]
-            redSum += arr[right]
+        left += 1
+        right -= 1
+        blueSum += arr[left]
+        redSum += arr[right]
             
     print(result)
