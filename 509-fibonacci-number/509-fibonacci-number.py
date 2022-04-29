@@ -1,6 +1,14 @@
 class Solution:
     def fib(self, n: int) -> int:
-        if n < 2:
-            return n
+        memo = {}
         
-        return self.fib(n - 1) + self.fib(n - 2)
+        def search(x):
+            if x < 2:
+                return x
+            
+            if x not in memo.keys():            
+                memo[x] = self.fib(x - 1) + self.fib(x - 2)
+                
+            return memo[x]
+        
+        return search(n)
