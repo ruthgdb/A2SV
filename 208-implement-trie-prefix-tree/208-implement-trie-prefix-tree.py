@@ -7,12 +7,12 @@ class Trie:
     def insert(self, word: str) -> None:
         curr = self
         
-        for i in range(len(word)):
-            if word[i] in curr.children:
-                curr = curr.children[word[i]]
+        for char in word:
+            if char in curr.children:
+                curr = curr.children[char]
             else:
                 newNode = Trie()
-                curr.children[word[i]] = newNode
+                curr.children[char] = newNode
                 curr = newNode
         
         curr.isEndOfWord = True
@@ -20,9 +20,9 @@ class Trie:
     def search(self, word: str) -> bool:
         curr = self
         
-        for i in range(len(word)):
-            if word[i] in curr.children:
-                curr = curr.children[word[i]]
+        for char in word:
+            if char in curr.children:
+                curr = curr.children[char]
             else:
                 return False
         
@@ -31,9 +31,9 @@ class Trie:
     def startsWith(self, prefix: str) -> bool:
         curr = self
         
-        for i in range(len(prefix)):
-            if prefix[i] in curr.children:
-                curr = curr.children[prefix[i]]
+        for char in prefix:
+            if char in curr.children:
+                curr = curr.children[char]
             else:
                 return False
         
