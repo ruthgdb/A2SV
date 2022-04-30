@@ -1,22 +1,14 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        if n < 3:
-            return n
+        memo = {}
         
-        '''
-        4:5
-        5:8
-        6:13   1 2 3 5 8 
-        7:21
-        8:24
-        '''
-    
-        
-        dp = [0] * n
-        dp[0] = 1
-        dp[1] = 2
-        
-        for i in range(2, n):
-            dp[i] = dp[i - 1] + dp[i - 2]
+        def stairs(x):
+            if x < 3:
+                return x
             
-        return dp[-1]
+            if x not in memo.keys():
+                memo[x] = stairs(x - 1) + stairs(x - 2)
+            
+            return memo[x]
+        
+        return stairs(n)
