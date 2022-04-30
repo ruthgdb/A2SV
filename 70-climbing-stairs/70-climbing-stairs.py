@@ -1,14 +1,8 @@
 class Solution:
-    def climbStairs(self, n: int) -> int:
-        memo = {}
+    def climbStairs(self, n: int, memo = {1: 1, 2: 2}) -> int:
+        if n not in memo.keys():
+            memo[n] = self.climbStairs(n - 1) + self.climbStairs(n - 2)
+
+        return memo[n]
         
-        def stairs(x):
-            if x < 3:
-                return x
-            
-            if x not in memo.keys():
-                memo[x] = stairs(x - 1) + stairs(x - 2)
-            
-            return memo[x]
         
-        return stairs(n)
