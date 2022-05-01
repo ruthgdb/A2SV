@@ -1,6 +1,7 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
         memo = {}
+        
         def houses(i):
             if i >= len(nums):
                 return 0
