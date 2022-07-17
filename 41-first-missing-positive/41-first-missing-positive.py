@@ -11,7 +11,7 @@ class Solution:
         for i in range(n):
             index = abs(nums[i])
             if index < n and nums[index] > 0:
-                nums[index] = -1 * nums[index]
+                nums[index] *= -1
        
         for i in range(1, n):
             if nums[i] > 0:
