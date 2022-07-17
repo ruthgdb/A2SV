@@ -1,6 +1,6 @@
 class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
-        n, count, maxx = len(nums), 0, 0
+        n, maxx = len(nums), 0
         
         for i in range(n):
             if nums[i] < 1 or nums[i] > n:
@@ -16,7 +16,5 @@ class Solution:
         for i in range(1, n):
             if nums[i] > 0:
                 return i
-            else:
-                count += 1
             
         return maxx + 1
