@@ -6,11 +6,11 @@ class Solution:
         while left <= right:
             mid = left + (right - left) // 2
             
-            if nums[mid] < target:
-                left = mid + 1
-            elif nums[mid] > target:
+            if target < nums[mid]:
                 right = mid - 1
+            elif target > nums[mid]:
+                left = mid + 1
             else:
                 return mid
-        
+            
         return -1
