@@ -1,24 +1,24 @@
 class Solution:
-    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]: 
-        def dfs(row, col):
-            image[row][col] = newColor
-            
-            for direction in directions:
-                newRow = row + direction[0]
-                newCol = col + direction[1]
-
-                if inbound(newRow, newCol) and image[newRow][newCol] == start:
-                    dfs(newRow, newCol)
-        
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        DIRs = [(0, -1), (0, 1), (-1, 0), (1, 0)]
+        m, n = len(image), len(image[0])
+        inbound = lambda r, c: 0 <= r < m and 0 <= c < n
         start = image[sr][sc]
-        if start == newColor:
-            return image
         
-        image[sr][sc] = newColor
-        n = len(image)
-        m = len(image[0])
-        inbound = lambda r, c: 0 <= r < n and 0 <= c < m
-        directions = [(0,1),(1,0),(-1,0),(0,-1)]
+        def dfs(r, c):
+            if image[r][c] != start:
+                return
+            
+            image[r][c] = color
+            
+            for DIR in DIRs:
+                nr, nc = r + DIR[0], c + DIR[1]
+                
+                if inbound(nr, nc):
+                    dfs(nr, nc)
+                       
+        if start == color:
+            return image
         
         dfs(sr, sc)
         return image
