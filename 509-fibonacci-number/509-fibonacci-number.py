@@ -1,14 +1,12 @@
 class Solution:
     def fib(self, n: int) -> int:
-        memo = {}
+        if n < 2:
+            return n
         
-        def search(x):
-            if x < 2:
-                return x
+        dp = [0] * n
+        dp[0], dp[1] = 0, 1
+        
+        for i in range(2, n):
+            dp[i] = dp[i - 1] + dp[i - 2]
             
-            if x not in memo.keys():            
-                memo[x] = self.fib(x - 1) + self.fib(x - 2)
-                
-            return memo[x]
-        
-        return search(n)
+        return dp[-1] + dp[-2]
