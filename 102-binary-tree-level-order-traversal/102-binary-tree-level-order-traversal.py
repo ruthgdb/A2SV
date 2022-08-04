@@ -6,13 +6,11 @@
 #         self.right = right
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        queue = deque()
+        queue, res = deque(), []
         queue.append(root)
-        res = []
         
         while queue:
-            level = []
-            l = len(queue)
+            level, l = [], len(queue)
             
             for i in range(l):
                 curr = queue.popleft()
