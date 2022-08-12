@@ -1,8 +1,8 @@
 class Solution:
     def decodeString(self, s: str) -> str:
-        stack, i, res = [s[0]], 1, ''
+        stack = [s[0]]
 
-        while i < len(s):
+        for i in range(1, len(s)):
             if s[i] != ']':
                 stack.append(s[i])
             else:
@@ -16,10 +16,5 @@ class Solution:
                     num = stack.pop() + num        
                 stack.append(temp * int(num))
                 
-            i += 1
-            
-        for i in stack:
-            res += i
-            
-        return res
+        return ''.join(stack)
    
