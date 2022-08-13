@@ -34,7 +34,7 @@ class Solution:
             temp.isEndOfWord = True
         
         for word in words:
-            if search(word):
+            if count[word]:
                 count[word] += 1
             else:
                 insert(word)
