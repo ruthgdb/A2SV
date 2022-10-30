@@ -15,18 +15,13 @@ class Solution:
             
         for i in range(len(t)):
             for j in range(i, len(s)):
-                if s[j] == t[i]:
-                    if i == 0 and j == 0:
-                        dp[i][j] = 1
-                        # print(s[i], t[j], i, j, dp[i][j])
-                    elif i == 0:
-                        dp[i][j] = dp[i][j - 1] + 1
-                    elif j == 0:
-                        dp[i][j] = 1
-                    else:
-                        dp[i][j] = dp[i - 1][j - 1] + dp[i][j - 1]
+                top_left = dp[i - 1][j - 1] if i > 0 and j > 0 else 1
+                left = dp[i][j - 1] if j > 0 else 0
+                
+                if t[i] == s[j]:
+                    dp[i][j] = left + top_left
                 else:
-                    dp[i][j] = dp[i][j - 1] if j > 0 else 0
-            # print(dp[i])
+                    dp[i][j] = left
+        
         
         return dp[-1][-1]
