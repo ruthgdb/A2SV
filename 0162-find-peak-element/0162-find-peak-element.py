@@ -8,7 +8,7 @@ class Solution:
             mid = (left + right) // 2
             
             if nums[mid - 1] < nums[mid] and nums[mid] > nums[mid + 1]:
-                return mid - 1
+                break
             
             if nums[mid - 1] > nums[mid]:
                 right = mid - 1
