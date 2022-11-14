@@ -33,9 +33,6 @@ class Solution:
                 if i != j:
                     if stone1[0] == stone2[0] or stone1[1] == stone2[1]:
                         self.union(stone1, stone2, parents)
-                        
-        for stone in stones:
-            self.find(stone, parents)
     
         for parent in parents:
             if parents[parent] == parent:
