@@ -4,12 +4,9 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution:
-    def numberOfNodes(self, root): 
+class Solution:   
+    def countNodes(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
         
-        return self.numberOfNodes(root.left) + self.numberOfNodes(root.right) + 1
-        
-    def countNodes(self, root: Optional[TreeNode]) -> int:
-        return self.numberOfNodes(root)
+        return self.countNodes(root.left) + self.countNodes(root.right) + 1
