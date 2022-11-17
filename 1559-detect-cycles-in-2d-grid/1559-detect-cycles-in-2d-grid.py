@@ -2,35 +2,25 @@ class Solution:
     def is_inbound(self, row, col, n, m):
         return 0 <= row < n and 0 <= col < m
     
-    def find(self, node, parents, rank):
+    def find(self, node, parents):
         if parents[node] == node:
             return node
         
-        parents[node] = self.find(parents[node], parents, rank)
+        parents[node] = self.find(parents[node], parents)
         return parents[node]
 
-    def union(self, u, v, parents, rank):
-        first_parent = self.find(u, parents, rank)
-        second_parent = self.find(v, parents, rank)
+    def union(self, u, v, parents):
+        first_parent = self.find(u, parents)
+        second_parent = self.find(v, parents)
             
         if first_parent == second_parent: 
             return True
 
-        rank1 = rank[first_parent]
-        rank2 = rank[second_parent]
-    
-        if rank1 > rank2:
-            parents[second_parent] = first_parent
-            rank[first_parent] += rank2
-        else: 
-            parents[first_parent] = second_parent
-            rank[second_parent] += rank1
+        parents[second_parent] = first_parent
 
         return False
-
         
     def containsCycle(self, grid: List[List[str]]) -> bool:
-        rank = defaultdict(lambda: 1)
         parents = {}
         DIR = [(0, 1), (1, 0), (-1, 0), (0, -1)]
         n = len(grid)
@@ -54,9 +44,8 @@ class Solution:
                     if not self.is_inbound(nr, nc, n, m) or (nr, nc) in visited:
                         continue
                         
-                    
                     if grid[nr][nc] == letter:
-                        if self.union((i, j), (nr, nc), parents, rank):
+                        if self.union((i, j), (nr, nc), parents):
                             return True
                         
         return False
