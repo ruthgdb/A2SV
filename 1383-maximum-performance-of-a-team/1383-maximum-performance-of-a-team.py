@@ -1,20 +1,26 @@
 class Solution:
     def maxPerformance(self, n: int, speed: List[int], efficiency: List[int], k: int) -> int:
-        perf = [(efficiency[x], speed[x]) for x in range(len(speed))]
-        perf.sort(reverse = True)
-        heap = []
-        total = 0
-        res = 0
-        mod = 10 ** 9 + 7
+        effSpeed = list(zip(efficiency, speed))
         
-        for eff, spd in perf:
-            heapq.heappush(heap, spd)
-            total += spd
+        effSpeed.sort(reverse=True)
+        minHeap = []
+        runSum = 0
+        maxPerformance = -inf
+        
+        for i in range(len(speed)):
+            heapq.heappush(minHeap, effSpeed[i][1])
+            runSum += effSpeed[i][1]
             
-            if len(heap) > k:
-                temp = heapq.heappop(heap)
-                total -= temp
+            if len(minHeap) > k:
+                temp = heapq.heappop(minHeap)
+                runSum -= temp
+                
+            curPerf = runSum * effSpeed[i][0]
+            maxPerformance = max(curPerf, maxPerformance)
             
-            res = max(res, total * eff)
+        return maxPerformance % (10 ** 9 + 7)
             
-        return res % mod
+            
+        
+        
+        
