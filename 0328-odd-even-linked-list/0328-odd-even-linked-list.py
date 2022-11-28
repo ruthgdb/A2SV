@@ -10,17 +10,13 @@ class Solution:
         
         odd = head
         even = head.next
-        oddDummy = odd
-        evenDummy = even
+        evenHead = even
         
-        while (odd and odd.next) or (even and even.next):
-            if odd and odd.next:
-                odd.next = odd.next.next
-                if odd.next:
-                    odd = odd.next
-            if even and even.next:
-                even.next = even.next.next
-                even = even.next
+        while even and even.next:
+            odd.next = even.next
+            odd = odd.next
+            even.next = odd.next
+            even = even.next
             
-        odd.next = evenDummy
-        return oddDummy
+        odd.next = evenHead
+        return head
