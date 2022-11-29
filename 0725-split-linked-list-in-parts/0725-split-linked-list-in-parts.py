@@ -6,9 +6,10 @@
 class Solution:
     def splitListToParts(self, head: Optional[ListNode], k: int) -> List[Optional[ListNode]]:
         n = 0
+        i = 0
         dummy = head
-        lis = [ListNode(-1) for _ in range(k)]
-        ans = [lis[i] for i in range(k)]
+        lis = [None for _ in range(k)]
+        res = [lis[i] for i in range(k)]
         
         while dummy:
             n += 1
@@ -16,30 +17,28 @@ class Solution:
             
         size = n // k
         left = n % k
-        i = 0 
-        count = size
+        count = size + 1 if left > 0 else size
+        left -= 1
         
-        if left > 0:
-            count += 1
-            left -= 1
-            
         dummy = head
         
         while dummy:
-            lis[i].next = ListNode(dummy.val)
-            lis[i] = lis[i].next
+            if not lis[i]:
+                lis[i] = dummy
+                res[i] = dummy
+            
             count -= 1
             
             if count == 0:
-                count = size
-                if left > 0:
-                    count += 1
-                    left -= 1
+                temp = dummy.next
+                dummy.next = None
+                dummy = temp
+                count = size + 1 if left > 0 else size
+                left -= 1
                 i += 1
-                
-            dummy = dummy.next
-            
-        for i in range(len(ans)):
-                ans[i] = ans[i].next
-                
-        return ans
+            else:
+                lis[i] = lis[i].next    
+                if dummy:
+                    dummy = dummy.next
+              
+        return res
