@@ -4,7 +4,6 @@ class ListNode:
         self.next = next
         
 class MyLinkedList:
-
     def __init__(self):
         self.head = None
         self.tail = None
@@ -41,11 +40,7 @@ class MyLinkedList:
             self.tail = self.tail.next
             
         curr = self.head    
-        # while curr:
-        #     print(curr.val)
-        #     curr = curr.next
-        # print(444)
-        
+      
     def addAtIndex(self, index: int, val: int) -> None:
         if index == 0:
             self.addAtHead(val)
@@ -70,12 +65,6 @@ class MyLinkedList:
             curr = curr.next
             curr.next = nextt
             
-        # curr = self.head
-        
-        # while curr:
-        #     print(curr.val)
-        #     curr = curr.next
-        # print(444)
     def deleteAtIndex(self, index: int) -> None:
         if index == 0:
             self.head = self.head.next
@@ -102,11 +91,7 @@ class MyLinkedList:
         elif curr:
             prev.next = prev.next.next
             
-        curr = self.head    
-        # while curr:
-        #     print(curr.val)
-        #     curr = curr.next
-        # print(444)
+        curr = self.head
 
 # Your MyLinkedList object will be instantiated and called as such:
 # obj = MyLinkedList()
