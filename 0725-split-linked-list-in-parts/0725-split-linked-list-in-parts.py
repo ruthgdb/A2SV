@@ -11,10 +11,12 @@ class Solution:
         lis = [None for _ in range(k)]
         res = [lis[i] for i in range(k)]
         
+        # count length of linkedlist
         while dummy:
             n += 1
             dummy = dummy.next
-            
+        
+        # find the size of each partition and the remaining nodes left
         size = n // k
         left = n % k
         count = size + 1 if left > 0 else size
@@ -29,6 +31,7 @@ class Solution:
             
             count -= 1
             
+            # if current partition is finished, start a new partition at next index
             if count == 0:
                 temp = dummy.next
                 dummy.next = None
@@ -38,7 +41,6 @@ class Solution:
                 i += 1
             else:
                 lis[i] = lis[i].next    
-                if dummy:
-                    dummy = dummy.next
+                dummy = dummy.next
               
         return res
