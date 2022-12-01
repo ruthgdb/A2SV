@@ -16,11 +16,7 @@ class LRUCache:
     def get(self, key: int) -> int:
         if key not in self.ptrs:
             return -1
-#         curr = self.head
-#         while curr:
-#             print(curr.val)
-#             curr=curr.next
-        
+
         self.putToFront(key)
         return self.ptrs[key][0]
 
@@ -40,17 +36,11 @@ class LRUCache:
                 self.tail = self.head
                 
             self.ptrs[key] = [value, self.tail]
-            # curr = self.head
-            # while curr:
-            #     print(curr.val)
-            #     curr=curr.next
-            # print(self.ptrs)
-        
+          
             if self.length > self.capacity:
                 self.removeLRUNode()
                 self.length -= 1
                 
-           
     def putToFront(self, key):
         val, node = self.ptrs[key]
         if not node.next:
@@ -68,11 +58,6 @@ class LRUCache:
             after.prev = before
         else:
             self.tail = before
-        
-#         curr = self.head
-#         while curr:
-#             print(curr.val)
-#             curr=curr.next
         
         self.tail.next = Node(key)
         temp = self.tail
