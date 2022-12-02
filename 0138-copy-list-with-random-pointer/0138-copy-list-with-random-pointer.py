@@ -13,15 +13,13 @@ class Solution:
             return 
         
         dummy = head
-        newPtrs = {}
-        newRandoms = {}
+        clones = {}
         newList = Node(0)
         res = newList
         
         while head:
             newList.val = head.val
-            newPtrs[head] = newList
-            newRandoms[newList] = head.random
+            clones[head] = newList
 
             if head.next:
                 newList.next = Node(0)
@@ -34,8 +32,8 @@ class Solution:
  
         while newList:            
             if head.random:
-                temp = newPtrs[head.random]
-                newList.random = temp
+                newRandom = clones[head.random]
+                newList.random = newRandom
                 
             newList = newList.next  
             head = head.next
