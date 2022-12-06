@@ -11,18 +11,18 @@ class Solution:
         
         def dfs(node):
             if not node:
-                return [None]
+                return 'None'
             
-            path = [node.val]
-            path = path + dfs(node.left)
-            path = path + dfs(node.right)
-            temp = tuple(path)
+            root = str(node.val)
+            left = dfs(node.left)
+            right = dfs(node.right)
+            temp = root + ',' + left + ',' + right
             
             if duplicates[temp] == 1:
                 res.append(node)
                 
             duplicates[temp] += 1
-            return path
+            return temp
             
         dfs(root)
         return res
