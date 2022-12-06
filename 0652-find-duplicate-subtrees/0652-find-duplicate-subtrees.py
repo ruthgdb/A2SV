@@ -14,22 +14,15 @@ class Solution:
                 return [None]
             
             path = [node.val]
-            left = dfs(node.left)
-            # print(left, dfs(node.left))
-            right = dfs(node.right)
-            
-            path = path + left
-            path = path + right
-            # print(node.val, left, right)
+            path = path + dfs(node.left)
+            path = path + dfs(node.right)
             temp = tuple(path)
-            # print(node, left, right)
+            
             if duplicates[temp] == 1:
-                # print(node, left, right)
                 res.append(node)
                 
             duplicates[temp] += 1
             return path
             
         dfs(root)
-        # print(duplicates)
         return res
