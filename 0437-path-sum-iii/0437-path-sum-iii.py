@@ -8,24 +8,22 @@ class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
         sums = defaultdict(int)
         sums[0] = 1
-        res = 0
         
-        def dfs(node, total):
-            nonlocal res, targetSum
+        def dfs(node, total, targetSum):
             if not node:
                 return 0
             
+            currSum = 0
             total += node.val
             
             if total - targetSum in sums:
-                res += sums[total - targetSum]
+                currSum += sums[total - targetSum]
                 
             sums[total] += 1
                 
-            dfs(node.left, total)
-            dfs(node.right, total)
+            currSum += dfs(node.left, total, targetSum) + dfs(node.right, total, targetSum)
             
             sums[total] -= 1
-                        
-        dfs(root, 0)
-        return res
+            return currSum 
+        
+        return dfs(root, 0, targetSum)
