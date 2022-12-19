@@ -1,5 +1,5 @@
 class Solution:
-    def checkValidString(self, s: str) -> bool:
+    def isValid(self, s, isReversed):
         opens = 0
         close = 0
         asterisk = 0
@@ -11,23 +11,15 @@ class Solution:
                 close += 1
             if i == '*':
                 asterisk += 1
-                
-            if close > asterisk + opens:
-                return False
             
-        opens = 0
-        close = 0
-        asterisk = 0
-        
-        for i in reversed(s):
-            if i == '(':
-                opens += 1
-            if i == ')':
-                close += 1
-            if i == '*':
-                asterisk += 1
-                
-            if opens > asterisk + close:
-                return False
-            
+            if isReversed:
+                if opens > asterisk + close:
+                    return False
+            else:
+                if close > asterisk + opens:
+                    return False
+
         return True
+    
+    def checkValidString(self, s: str) -> bool:
+        return self.isValid(s, False) and self.isValid(reversed(s), True)
