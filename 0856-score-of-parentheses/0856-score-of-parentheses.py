@@ -5,23 +5,13 @@ class Solution:
         
         for i in s:
             if i == ')':
-                temp = 0
-                
-                while stack[-1][0] != '(':
-                    char, count = stack.pop()
-                    temp += count
-                    
                 char, count = stack.pop()
                 
-                if temp != 0:
-                    stack.append(['*', (temp * 2)])
+                if stack:
+                    stack[-1][1] = stack[-1][1] + 1 if not count else stack[-1][1] + (count * 2)
                 else:
-                    stack.append(['*', (temp) + count])
-            
+                    score = score + 1 if not count else score + (count * 2)
             else:
-                stack.append(["(", 1])
-        
-        for char, count in stack:
-            score += count
-            
+                stack.append(["(", 0])
+                
         return score
