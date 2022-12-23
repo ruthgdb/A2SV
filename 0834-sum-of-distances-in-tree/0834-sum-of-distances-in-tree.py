@@ -8,19 +8,21 @@ class Solution:
             graph[node1].add(node2)
             graph[node2].add(node1)
         
-        def dfs(node, parent):
-            for neighbour in graph[node]:
-                if neighbour != parent:
-                    dfs(neighbour, node)
-                    count[node] += count[neighbour]
-                    result[node] += result[neighbour] + count[neighbour]
+        @cache
+        def dfs(parent, node):
+            dist = 0
+            count = 1
             
-        def dfs2(node, parent): 
-            for neighbour in graph[node]:
-                if neighbour != parent:
-                    result[neighbour] = result[node] - 2 * count[neighbour] + n
-                    dfs2(neighbour, node)
-        
-        dfs(0, -1)
-        dfs2(0, -1)
+            for nei in graph[node]:
+                if nei != parent:
+                    d, c = dfs(node, nei)
+                    count += c
+                    dist += d + c
+            
+            return (dist, count)
+            
+        for i in range(n):
+            dist, count = dfs(-1, i)
+            result[i] = dist
+            
         return result
