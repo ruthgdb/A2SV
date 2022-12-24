@@ -6,8 +6,8 @@ class Solution:
         changedEdges = 0
         
         for city1, city2 in connections:
-            graph[city1].append((city2, "from"))
-            graph[city2].append((city1, "to"))
+            graph[city1].append((city2, 1))
+            graph[city2].append((city1, 0))
         
         while queue:
             currCity = queue.popleft()
@@ -19,8 +19,7 @@ class Solution:
             
             for neighbour, d in graph[currCity]:
                 if neighbour not in visited:
-                    if d == 'from':
-                        changedEdges += 1
+                    changedEdges += d
                     queue.append(neighbour)
                              
         return changedEdges
