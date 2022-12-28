@@ -4,9 +4,6 @@ class Solution:
         heapq.heapify(heap)
         
         for _ in range(k):
-            if not heap:
-                return 0
-            
             stone = -heapq.heappop(heap)
             heapq.heappush(heap, -stone // 2)
             
