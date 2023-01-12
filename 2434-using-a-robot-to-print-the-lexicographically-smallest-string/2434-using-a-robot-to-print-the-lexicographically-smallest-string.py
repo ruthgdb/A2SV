@@ -1,29 +1,27 @@
 class Solution:
-    def isFirst(self, idx, count):
-        for i in range(idx):
-            if count[i] > 0:
-                return False
-            
-        return True
-    
     def robotWithString(self, s: str) -> str:
-        t = []
-        paper = []
-        count = [0] * 26
+        suffix_min = [None for _ in range(len(s))]
+        suffix_min[-1] = s[-1]
         
-        for i in s:
-            count[ord(i) - ord('a')] += 1
+        for i in range(len(s) - 2, -1, -1):
+            suffix_min[i] = min(s[i], suffix_min[i + 1])
         
-        for i in range(len(s)):
-            count[ord(s[i]) - ord('a')] -= 1
-            t.append(s[i])
+        suffix_min.append(chr(ord('z') + 1))
+        
+        result = []
+        stack = []
+        idx = 0
+        
+        while idx < len(s):
+            if stack and stack[-1] <= suffix_min[idx]:
+                result.append(stack.pop())
+            else:
+                stack.append(s[idx])
+                idx += 1
+        
+        stack.reverse()
+        result += stack
+        return "".join(result)
+                
+                
             
-            while t:
-                curr = t[-1]
-                if self.isFirst(ord(curr) - ord('a'), count):
-                    paper.append(t.pop())
-                else:
-                    break
-            
-        return "".join(paper)
-        
