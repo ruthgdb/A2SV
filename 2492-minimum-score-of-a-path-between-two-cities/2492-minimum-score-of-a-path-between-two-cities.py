@@ -14,7 +14,6 @@ class Solution:
             parents[pu] = pv
             
         rank[pv] = min(rank[pv], rank[pu], dist)
-        rank[pu] = min(rank[pv], rank[pu], dist)
         
     def minScore(self, n: int, roads: List[List[int]]) -> int:
         rank = [float("inf")] * n
