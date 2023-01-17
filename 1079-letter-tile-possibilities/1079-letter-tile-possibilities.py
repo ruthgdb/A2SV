@@ -5,7 +5,7 @@ class Solution:
         
         def backtrack(path):
             if path:
-                sequences.add(''.join(path))
+                sequences.add(path)
             
             if sum(letters.values()) == 0:
                 return
