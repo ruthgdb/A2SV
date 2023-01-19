@@ -8,9 +8,7 @@ class Solution:
             prefSum.append(prefSum[-1] + num)
                         
         for i in range(len(prefSum)):
-            if prefSum[i] % k in mods:
-                count += mods[prefSum[i] % k]
-            
+            count += mods[prefSum[i] % k]
             mods[prefSum[i] % k] += 1
             
         return count
