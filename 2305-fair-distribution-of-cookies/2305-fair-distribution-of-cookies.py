@@ -8,7 +8,7 @@ class Solution:
             nonlocal minDiff
             
             if i == len(cookies):
-                minDiff = min(minDiff, max(children))
+                minDiff = min(minDiff, currMax)
                 return 
             
             for j in range(k):
