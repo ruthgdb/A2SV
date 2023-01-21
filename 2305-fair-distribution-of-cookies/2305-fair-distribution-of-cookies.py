@@ -3,7 +3,8 @@ class Solution:
         children = [0] * k
         minDiff = float("inf")
         
-        def backtrack(i):
+        @cache
+        def backtrack(i, currMax):
             nonlocal minDiff
             
             if i == len(cookies):
@@ -13,10 +14,10 @@ class Solution:
             for j in range(k):
                 children[j] += cookies[i]
                 if children[j] < minDiff:
-                    backtrack(i + 1)
+                    backtrack(i + 1, max(currMax, children[j]))
                 children[j] -= cookies[i]
                 
-            return
+            return currMax
         
-        backtrack(0)
+        backtrack(0, 0)
         return minDiff
