@@ -1,16 +1,15 @@
 class Solution:
     def maxSumOfThreeSubarrays(self, nums: List[int], k: int) -> List[int]:
-        maxSum = 0
-        ans = []
         prefSum = [0]
         sums = defaultdict(int)
         
-        for num in nums:
+        for i, num in enumerate(nums):
             prefSum.append(prefSum[-1] + num)
-            
-        for i in range(len(prefSum) - k):
-            sums[i] = prefSum[i + k] - prefSum[i]
-           
+            if i >= k:
+                sums[i - k] = prefSum[i] - prefSum[i - k]
+              
+        sums[len(nums) - k] = prefSum[-1] - prefSum[len(nums) - k]
+
         @cache
         def dp(i, count):
             if count == 0 or i >= len(sums):
