@@ -7,10 +7,10 @@ class Solution:
             mid = (right + left) // 2
             
             if mid + 1 < len(arr) - 1 and arr[mid] < arr[mid + 1]:
-                left = mid + 1
+                left = mid 
             elif mid > 0 and arr[mid - 1] > arr[mid]:
-                right = mid - 1
+                right = mid 
             else:
-                return mid
+                break
             
-        return left
+        return mid
