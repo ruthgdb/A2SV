@@ -6,6 +6,7 @@ class Solution:
         for char in path:
             if char == '' or char == '.':
                 continue
+                
             if char == '..':
                 if canonical_path:
                     canonical_path.pop()
