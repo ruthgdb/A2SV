@@ -12,7 +12,6 @@ class Solution:
                 if preWord in dp:
                     currChain = max(currChain, dp[preWord] + 1)
             
-            longestChain = max(longestChain, currChain)
-            dp[word] = max(dp[word], currChain)
+            dp[word] = currChain
             
-        return longestChain
+        return max(dp.values())
