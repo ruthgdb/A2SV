@@ -1,6 +1,5 @@
 class Solution:
     def longestStrChain(self, words: List[str]) -> int:
-        longestChain = 1
         words.sort(key=len)
         dp = defaultdict(int)
         
