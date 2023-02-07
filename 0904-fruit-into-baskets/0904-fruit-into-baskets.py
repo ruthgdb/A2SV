@@ -1,17 +1,18 @@
 class Solution:
     def totalFruit(self, fruits: List[int]) -> int:
-        res = l = 0
-        lookup = {}
-        
-        for r in range(len(fruits)):
-            lookup[fruits[r]] = 1 + lookup.get(fruits[r],0)
-            
-            while len(lookup) > 2:
-                lookup[fruits[l]] -= 1
-                
-                if lookup[fruits[l]] == 0:
-                    del lookup[fruits[l]]
-                l += 1
-                
-            res = max(res,sum(lookup.values()))
+        count = defaultdict(int)
+        left = 0
+        res = 0
+
+        for right in range(len(fruits)):
+            count[fruits[right]] += 1
+
+            while left < len(fruits) and len(count) > 2:
+                count[fruits[left]] -= 1
+                if count[fruits[left]] == 0:
+                    del count[fruits[left]]
+                left += 1
+
+            res = max(res, right - left + 1)
+
         return res
