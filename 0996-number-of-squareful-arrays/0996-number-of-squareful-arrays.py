@@ -5,14 +5,14 @@ class Solution:
         visited2 = set()
         permutations = 0
         
-        def backtrack(node, visited):
+        def backtrack(num, visited):
             nonlocal permutations
             finished = set()
             
             if len(visited) == len(nums):
                 permutations += 1
                 
-            for i, nei in graph[node]:
+            for i, nei in graph[num]:
                 if (i, nei) in visited or nei in finished:
                     continue
                 visited.add((i, nei))
