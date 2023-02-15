@@ -2,23 +2,22 @@ class Solution:
     def numSquarefulPerms(self, nums: List[int]) -> int:
         graph = defaultdict(set)
         visited = set()
-        visited2 = set()
         permutations = 0
         
-        def backtrack(num, visited):
+        def backtrack(num, seen):
             nonlocal permutations
             finished = set()
             
-            if len(visited) == len(nums):
+            if len(seen) == len(nums):
                 permutations += 1
                 
             for i, nei in graph[num]:
-                if (i, nei) in visited or nei in finished:
+                if (i, nei) in seen or nei in finished:
                     continue
-                visited.add((i, nei))
+                seen.add((i, nei))
                 finished.add(nei)
-                backtrack(nei, visited)
-                visited.remove((i, nei))
+                backtrack(nei, seen)
+                seen.remove((i, nei))
 
         for i in range(len(nums)):
             for j in range(len(nums)):
@@ -31,8 +30,8 @@ class Solution:
                     graph[nums[j]].add((i, nums[i])) 
                             
         for i in range(len(nums)):
-            if nums[i] not in visited2:
+            if nums[i] not in visited:
                 backtrack(nums[i], {(i, nums[i])}) 
-                visited2.add(nums[i])
+                visited.add(nums[i])
             
         return permutations
