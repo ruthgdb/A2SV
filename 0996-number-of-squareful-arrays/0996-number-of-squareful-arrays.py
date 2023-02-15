@@ -13,12 +13,13 @@ class Solution:
                 permutations += 1
                 
             for i, nei in graph[node]:
-                if (i, nei) not in visited and nei not in finished:
-                    visited.add((i, nei))
-                    finished.add(nei)
-                    backtrack(nei, visited)
-                    visited.remove((i, nei))
-        
+                if (i, nei) in visited or nei in finished:
+                    continue
+                visited.add((i, nei))
+                finished.add(nei)
+                backtrack(nei, visited)
+                visited.remove((i, nei))
+
         for i in range(len(nums)):
             for j in range(len(nums)):
                 if i == j:
