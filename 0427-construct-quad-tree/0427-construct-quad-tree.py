@@ -24,14 +24,12 @@ class Solution:
             return total == 0 or total == n ** 2
         
         def dfs(r1, c1, n, root):
-            leaf = checkSubMatrix(r1, c1, n)
+            root.val = grid[r1][c1]
             
-            if leaf:
+            if checkSubMatrix(r1, c1, n):
                 root.isLeaf = True
-                root.val = grid[r1][c1]
             else:
                 root.isLeaf = False
-                root.val = grid[r1][c1]
                 root.topLeft = dfs(r1, c1, n // 2, Node())
                 root.topRight = dfs(r1, c1 + (n // 2), n // 2, Node())
                 root.bottomLeft = dfs(r1 + (n // 2), c1, n // 2, Node())
