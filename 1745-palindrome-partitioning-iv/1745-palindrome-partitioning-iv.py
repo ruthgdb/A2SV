@@ -22,8 +22,8 @@ class Solution:
          
         for i in range(n):
             for j in palindroms[i]:
-                dp[j][1] = dp[j][1] or dp[i][0] 
-                dp[j][2] = dp[j][2] or dp[i][1]
-                dp[j][3] = dp[j][3] or dp[i][2]
+                dp[j][1] |= dp[i][0] 
+                dp[j][2] |= dp[i][1]
+                dp[j][3] |= dp[i][2]
                 
         return dp[-1][3]
