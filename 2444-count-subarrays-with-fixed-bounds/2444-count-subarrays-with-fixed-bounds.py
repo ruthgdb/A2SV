@@ -13,6 +13,6 @@ class Solution:
                 
             start = min(maxx, mini)
             if start > k:
-                res += (start - k)
+                res += start - k
                 
         return res
