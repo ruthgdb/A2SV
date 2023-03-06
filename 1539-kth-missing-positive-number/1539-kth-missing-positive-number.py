@@ -14,9 +14,6 @@ class Solution:
             else:
                 left = mid + 1
         
-        if best != -1:
-            count = arr[best - 1] - best
-            return arr[best - 1] + k - count
-        
-        count = arr[-1] - len(arr)
-        return arr[-1] + k - count
+        count = arr[best - 1] - best if best != -1 else arr[-1] - len(arr)
+        best = 0 if best == -1 else best
+        return arr[best - 1] + k - count
