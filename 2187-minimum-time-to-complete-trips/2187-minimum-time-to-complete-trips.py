@@ -1,7 +1,7 @@
 class Solution:
     def minimumTime(self, time: List[int], totalTrips: int) -> int:
         left = min(time)
-        right = min(time) * totalTrips
+        right = left * totalTrips
         
         def completeTrips(trips):
             count = 0
