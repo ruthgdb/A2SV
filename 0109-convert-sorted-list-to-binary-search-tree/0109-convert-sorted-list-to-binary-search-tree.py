@@ -22,7 +22,7 @@ class Solution:
             fast = fast.next.next
             found = True
         
-        return (slow, found) if not found else (prev, found)
+        return (slow, False) if not found else (prev, True)
         
     def sortedListToBST(self, head: Optional[ListNode]) -> Optional[TreeNode]:
         
@@ -39,6 +39,7 @@ class Solution:
             prev.next = None
             left = buildBST(node) if found else TreeNode(node.val)
             newNode = TreeNode(mid.val)
+            
             if left:
                 newNode.left = left
             if right:
