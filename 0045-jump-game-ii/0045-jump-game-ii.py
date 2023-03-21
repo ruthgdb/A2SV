@@ -1,12 +1,17 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        dp = [0] * len(nums)
+        left = 0
+        currMax = 0
+        right = currMax
+        count = 0
         
-        for i in range(len(nums) - 2, -1, -1):
-            mini, idx = float(inf), i + 1
-            for j in range(i + 1, i + nums[i] + 1):
-                if j < len(nums) and dp[j] < mini:  mini, idx = dp[j], j
-                    
-            dp[i] = 1 + dp[idx]
+        while right < len(nums) - 1:
+            currMax = 0
+            while left <= right:
+                currMax = max(currMax, left + nums[left])
+                left += 1
             
-        return dp[0]
+            right = currMax
+            count += 1
+            
+        return count
