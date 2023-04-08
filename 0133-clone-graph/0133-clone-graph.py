@@ -8,22 +8,26 @@ class Node:
 
 class Solution:
     def cloneGraph(self, node: 'Node') -> 'Node':
-        if not node: return 
+        if not node:
+            return None
         
-        clone = Node(node.val)
-        nodes = defaultdict(None)
-        nodes[node.val] = clone
-
-        q = deque([node])
+        newGraph = Node()
+        newOld = {}
+        visited = set()
         
-        while q:
-            curr = q.popleft()
-            cl = nodes[curr.val]
-            for ne in curr.neighbors:
-                if ne.val not in nodes:
-                    new = Node(ne.val)
-                    nodes[ne.val] = new
-                    q.append(ne)
-                cl.neighbors.append(nodes[ne.val])
-                  
-        return clone
+        def build(root, node):
+            root.val = node.val
+            newOld[node.val] = root
+            
+            for nei in node.neighbors:
+                if nei not in visited:
+                    visited.add(nei)
+                    newNei = Node()
+                    root.neighbors.append(newNei)
+                    build(newNei, nei)
+                else:
+                    root.neighbors.append(newOld[nei.val])
+            
+        visited.add(node)
+        build(newGraph, node)
+        return newGraph
