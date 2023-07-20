@@ -11,11 +11,9 @@ class Solution:
                 while stack and stack[-1] > 0:
                     if stack[-1] < abs(asteroid):
                         stack.pop()
-                    elif stack[-1] == abs(asteroid):
-                        should_add = False
-                        stack.pop()
-                        break
                     else:
+                        if stack[-1] == abs(asteroid):
+                            stack.pop()
                         should_add = False
                         break
                         
