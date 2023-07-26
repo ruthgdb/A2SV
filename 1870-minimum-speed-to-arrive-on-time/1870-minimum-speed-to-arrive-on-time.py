@@ -9,13 +9,11 @@ class Solution:
                 time += curr_speed
             else:
                 time += math.ceil(curr_speed)
-            # print(curr_speed, speed)
           
-        # print('final', time <= hour)
         return time <= hour
         
     def minSpeedOnTime(self, dist: List[int], hour: float) -> int:
-        left = 1
+        left = max(1, sum(dist) // hour)
         right = 10 ** 9
         best = -1
         
@@ -25,7 +23,7 @@ class Solution:
             is_valid = self.is_valid_speed(mid, dist, hour)
             
             if is_valid:
-                best = mid
+                best = int(mid)
                 right = mid - 1
             else:
                 left = mid + 1
