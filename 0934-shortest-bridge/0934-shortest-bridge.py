@@ -1,34 +1,67 @@
 class Solution:
     def shortestBridge(self, grid: List[List[int]]) -> int:
-        directions, queue = [[0, 1], [0, -1], [1, 0], [-1, 0]], deque()
-        numRows, numCols, row, col = len(grid), len(grid[0]), 0, 0
+        visited = set()
+        DIR = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        inbound = lambda x, y: 0 <= x < len(grid) and 0 <= y < len(grid)
         
-        def paint(row, col):
-            nonlocal grid, queue, numRows, numCols
-            if min(row, col) >= 0 and max(row, col) < numRows and grid[row][col] == 1:
-                grid[row][col] = 2
-                queue.append((row, col))
-                for direction in directions:
-                    paint(row + direction[0], col + direction[1])
+        def dfs(i, j):
+            grid[i][j] = "1"
+            visited.add((i, j))
+                
+            for x, y in DIR:
+                nr = x + i
+                nc = y + j
+                
+                if not inbound(nr, nc):
+                    continue
+                    
+                if grid[nr][nc] == 0:
+                    grid[nr][nc] = -1
+                    
+                if (nr, nc) not in visited and grid[nr][nc] == 1:
+                    dfs(nr, nc)
         
-        while row < numRows and len(queue) == 0:
-            col = 0
-            while col < numCols and len(queue) == 0:
-                paint(row, col)
-                col += 1
-            row += 1
-            
+        found = False
+        
+        for i in range(len(grid)):
+            if found:
+                break
+            for j in range(len(grid)):
+                if grid[i][j] == 1:
+                    dfs(i, j)
+                    found = True
+                    break
+
+        queue = deque()
+        level = 1
+        
+        for i in range(len(grid)):
+            for j in range(len(grid)):
+                if grid[i][j] == -1:
+                    queue.append((i, j))
+        
         while queue:
-            queue1 = deque()
-            for row, col in queue:
-                for direction in directions:
-                    newRow, newCol = row + direction[0], col + direction[1]
-                    if min(newRow, newCol) >= 0 and max(newRow, newCol) < numRows:
-                        if grid[newRow][newCol] == 1:
-                            return grid[row][col] - 2
-                        if grid[newRow][newCol] == 0:
-                            grid[newRow][newCol] = grid[row][col] + 1
-                            queue1.append((newRow, newCol))
-                            
-            queue, queue1 = queue1, queue
-        return 0
+            l = len(queue)
+            
+            for _ in range(l):
+                row, col = queue.popleft()
+                if (row, col) in visited:
+                    continue
+                    
+                visited.add((row, col))
+                
+                for x, y in DIR:
+                    nr = x + row
+                    nc = y + col
+
+                    if not inbound(nr, nc) or (nr, nc) in visited:
+                        continue
+                    
+                    if grid[nr][nc] == 1:
+                        return level
+                    
+                    if grid[nr][nc] == 0:
+                        queue.append((nr, nc))
+                        
+            level += 1
+
