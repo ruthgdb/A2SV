@@ -1,41 +1,54 @@
 class Solution:
+    def find(self, node, parents):
+        if node == parents[node]:
+            return node
+
+        parents[node] = self.find(parents[node], parents)
+        return parents[node]
+
+    def union(self, nei, node, parents, rank):
+        p1 = self.find(nei, parents)
+        p2 = self.find(node, parents)
+
+        if p1 != p2:
+            rank1, count1 = rank[p1]
+            rank2, count2 = rank[p2]
+            parents[p2] = p1
+            
+            if rank1 == rank2:
+                rank[p1] = (max(rank1, rank2), count1 + count2)
+                return max(count1, count2)
+
+            if rank1 > rank2:
+                rank[p1] = (rank1, count1)
+            else:
+                rank[p1] = (rank2, count2)
+
+        return 0
+    
     def numberOfGoodPaths(self, vals: List[int], edges: List[List[int]]) -> int:
-        links = defaultdict(list)
-        for a, b in edges:
-            links[a].append(b)
-            links[b].append(a)
-
-        by_value = defaultdict(list)
-        for n, val in enumerate(vals): by_value[val].append(n)
-
-        if len(by_value) == len(vals):
-            return len(vals)
-        elif len(by_value) == 1:
-            return len(vals)*(len(vals)+1)//2
-            
-        parent = list(range(len(vals)))
-
-        def ancestor(n):
-            while parent[n] != n:
-                n, parent[n] = parent[n], parent[parent[n]]
-            return n
-
-        def merge(a, b):
-            aa, ab = ancestor(a), ancestor(b)
-            parent[max(aa, ab)] = min(aa, ab)
+        idx_val_pair = []
+        graph = defaultdict(list)
+        unique_paths = len(vals)
+        parents = {}
+        rank = {}
         
-        paths = 0
-        for val, nodes in sorted(by_value.items()):
-            
-            for n in nodes:
-                for nn in links[n]:
-                    if vals[nn] <= val:
-                        merge(n, nn)
-            
-            groups = defaultdict(int)
-            for n in nodes:
-                groups[ancestor(n)]+=1
-            
-            paths += sum(k*(k+1)//2 for k in groups.values())
+        for i in range(len(vals)):
+            idx_val_pair.append((vals[i], i))
+        
+        for n1, n2 in edges:
+            graph[n1].append(n2)
+            graph[n2].append(n1)
 
-        return paths
+        idx_val_pair.sort()
+        
+        for val, idx in idx_val_pair:
+            parents[idx] = idx
+            rank[idx] = (val, 1)
+
+            for nei in graph[idx]:
+                if vals[nei] <= val and nei in parents:
+                    curr_count = self.union(nei, idx, parents, rank)
+                    unique_paths += curr_count
+
+        return unique_paths
