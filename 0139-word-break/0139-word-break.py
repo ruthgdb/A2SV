@@ -16,6 +16,7 @@ class Solution:
                 for j in range(i):
                     if dp[j] and s[j + 1:i+ 1] in wordDict:
                         found = True
+                        break
                         
             dp[i] = found
                     
