@@ -10,14 +10,13 @@ class Solution:
         '''
         
         for i in range(len(s)):
-            found = s[:i + 1] in wordDict
-            
-            if not found:
-                for j in range(i):
-                    if dp[j] and s[j + 1:i+ 1] in wordDict:
-                        found = True
-                        break
-                        
-            dp[i] = found
-                    
+            if s[:i + 1] in wordDict:
+                dp[i] = True
+                continue
+                
+            for j in range(i):
+                if dp[j] and s[j + 1:i+ 1] in wordDict:
+                    dp[i] = True
+                    break
+
         return dp[-1]
