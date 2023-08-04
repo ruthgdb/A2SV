@@ -1,18 +1,22 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         wordDict = set(wordDict)
+        dp = [False] * len(s)
         
-        @cache
-        def dp(i):
-            if i >= len(s):
-                return True
+        '''
+        applepenapple
+        fffftfft
+        
+        '''
+        
+        for i in range(len(s)):
+            found = s[:i + 1] in wordDict
             
-            found = False
-            
-            for j in range(i, len(s)):
-                if s[i:j + 1] in wordDict:
-                    found |= dp(j + 1)
+            if not found:
+                for j in range(i):
+                    if dp[j] and s[j + 1:i+ 1] in wordDict:
+                        found = True
+                        
+            dp[i] = found
                     
-            return found
-                    
-        return dp(0)
+        return dp[-1]
