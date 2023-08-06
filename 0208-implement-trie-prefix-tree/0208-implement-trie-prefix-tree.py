@@ -2,20 +2,19 @@ class Trie:
 
     def __init__(self):
         self.children = {}
-        self.isEOW = False
+        self.is_eow = False
 
     def insert(self, word: str) -> None:
         root = self
         
         for char in word:
-            if char in root.children:
-                root = root.children[char]
-            else:
-                newNode = Trie()
-                root.children[char] = newNode
-                root = newNode
+            if char not in root.children:
+                child = Trie()
+                root.children[char] = child
                 
-        root.isEOW = True
+            root = root.children[char]
+            
+        root.is_eow = True
 
     def search(self, word: str) -> bool:
         root = self
@@ -26,7 +25,7 @@ class Trie:
             
             root = root.children[char]
             
-        return root.isEOW
+        return root.is_eow
 
     def startsWith(self, prefix: str) -> bool:
         root = self
@@ -38,7 +37,8 @@ class Trie:
             root = root.children[char]
             
         return True
-        
+
+
 
 # Your Trie object will be instantiated and called as such:
 # obj = Trie()
