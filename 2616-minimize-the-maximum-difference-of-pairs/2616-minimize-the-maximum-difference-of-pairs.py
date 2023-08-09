@@ -2,7 +2,6 @@ import heapq
 
 class Solution:
     def valid_max(self, val, nums, p):
-        visited = set()
         i = 0
         count = 0
         
