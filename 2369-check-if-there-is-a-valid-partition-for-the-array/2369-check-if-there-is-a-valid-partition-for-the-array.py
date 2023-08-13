@@ -1,27 +1,17 @@
 class Solution:
     def validPartition(self, nums: List[int]) -> bool:
+        n = len(nums)
+        dp = [False] * (n + 1)
+        dp[0] = True
         
-        @cache
-        def dp(i):
-            if i == len(nums):
-                return True
-            
-            if i >= len(nums) - 1:
-                return False
-            
-            two_equals = three_equals = three_inc = False
-            
-            if i < len(nums) - 1:
-                if nums[i] == nums[i + 1]:
-                    two_equals = dp(i + 2)
+        for i in range(1, n + 1):
+            if i > 1 and nums[i - 1] == nums[i - 2]:
+                dp[i] |= dp[i - 2]
                     
-            if i < len(nums) - 2:
-                if nums[i] == nums[i + 1] == nums[i + 2]:
-                    three_equals = dp(i + 3)
+            if i > 2 and nums[i - 1] == nums[i - 2] == nums[i - 3]:
+                dp[i] |= dp[i - 3]
                     
-                if nums[i] == nums[i + 1] - 1 == nums[i + 2] - 2:
-                    three_inc = dp(i + 3)
-            
-            return two_equals or three_equals or three_inc
-        
-        return dp(0)
+            if i > 2 and nums[i - 1] == nums[i - 2] + 1 == nums[i - 3] + 2:
+                dp[i] |= dp[i - 3]
+           
+        return dp[-1]
