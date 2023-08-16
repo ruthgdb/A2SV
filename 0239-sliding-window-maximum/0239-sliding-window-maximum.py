@@ -10,13 +10,12 @@ class Solution:
                     
             queue.append(nums[right])
             
-            if right - left + 1 < k:
-                continue
-            elif right - left + 1 > k:
+            if right - left + 1 > k:
                 if queue[0] == nums[left]:
                     queue.popleft()
                 left += 1
             
-            res.append(queue[0])
+            if right - left + 1 == k:
+                res.append(queue[0])
                 
         return res
