@@ -9,9 +9,13 @@ class Solution:
         res = []
         
         def build_group(g_num):
+            ''' This function builds the dependencies between items in a group
+            it returns False if there is a cycle between the items
+            '''
             inner_queue = deque()
             visited = set()
             
+            # add individual items that are independent
             for i in groups[g_num]:
                 if incoming[i] == 0:
                     inner_queue.append(i)
@@ -38,14 +42,17 @@ class Solution:
                 
             return len(visited) == len(groups[g_num])
         
+        # building groups
         for i, item in enumerate(group):
             groups[item].append(i)
             
+        # bulding dependecies among items
         for i, deps in enumerate(beforeItems):
             for dep in deps:
                 incoming[i] += 1
                 graph[dep].append(i)
-                
+            
+        # building dependencies among groups
         for i, deps in enumerate(beforeItems):
             for dep in deps:
                 if group[i] == -1:
@@ -54,14 +61,15 @@ class Solution:
                     if group[i] != group[dep]:
                         group_incoming[group[i]] += 1
 
-            
+        # adding independent groups to build graph   
         for i, g in enumerate(group_incoming):
             if g == 0:
                 queue.append((i, True))
-                
+              
+        # adding independent groupless items to queue
         for i in groups[-1]:
             if i not in groupless_deps:
-                queue.appendleft((i, False))
+                queue.appendleft((i, False)) # because its not a group
              
         while queue:
             curr_group, is_group = queue.popleft()
