@@ -19,4 +19,5 @@ class Solution:
             itinerary.sort(reverse = True)
 
         dfs('JFK')
-        return res[::-1]
+        res.reverse()
+        return res
