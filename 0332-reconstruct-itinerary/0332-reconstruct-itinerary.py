@@ -15,8 +15,8 @@ class Solution:
         for frm, to in tickets:
             graph[frm].append(to)
 
-        for _, itinerary in graph.items():
-            itinerary.sort(reverse = True)
+        for flights in graph:
+            graph[flights].sort(reverse = True)
 
         dfs('JFK')
         res.reverse()
