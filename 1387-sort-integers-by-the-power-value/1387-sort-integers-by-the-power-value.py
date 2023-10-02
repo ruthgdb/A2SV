@@ -1,3 +1,4 @@
+import heapq
 class Solution:
     def getKth(self, lo: int, hi: int, k: int) -> int:
         res = []
@@ -14,7 +15,9 @@ class Solution:
         
         for i in range(lo, hi + 1):
             power = dp(i)
-            res.append((power, i))
+            heappush(res, (-power, -i))
+            
+            if len(res) > k:
+                heappop(res)
          
-        res.sort()
-        return res[k - 1][1]
+        return -res[0][1]
